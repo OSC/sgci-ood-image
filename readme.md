@@ -17,4 +17,8 @@ Ensure that there is a security group that permits access on ports 80 and 22.
 
 ### Install Open OnDemand and Slurm
 
-Just run `./installer.sh` and it will take care of the rest.
+Run `./installer.sh` and it will take care of the rest.
+
+### Use OOD
+
+Using a web browser navigate to your public IP address, and sign into the OnDemand instance using the user name `ood` and password `ood`.
