@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [[ -d "/vagrant" ]]; then
     cd "/vagrant"
 fi
@@ -9,6 +10,7 @@ fi
 
 yum install -y epel-release centos-release-scl lsof sudo
 yum install -y scl-utils
+yum groupinstall -y 'Development Tools'
 yum install -y https://yum.osc.edu/ondemand/latest/ondemand-release-web-latest-1-2.el7.noarch.rpm
 yum install -y ondemand
 
