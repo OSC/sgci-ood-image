@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "ood", primary: true, autostart: true do |ood|
     ood.vm.network "forwarded_port", guest: 80, host: 8080
     ood.vm.network "private_network", ip: "10.0.0.100"
-    ood.vm.provision "shell", path: "new_installer.sh"
+    ood.vm.provision "shell", path: "installer.sh"
   end
 end
 
