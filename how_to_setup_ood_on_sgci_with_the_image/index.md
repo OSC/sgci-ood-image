@@ -65,6 +65,6 @@ You will see the default security group listed. Click Manage Rules to review the
 
 ## 3. Using Open OnDemand
 
-The image you have loaded is a base installation of Open OnDemand version 1.4.3, with a Slurm 17.11.7 on a CentOS 7 base, using HTTP BasicAuth on a unified web/submit/compute node. As this is a demonstration installation of Open OnDemand it does not include non-core apps such as Jupyter notebook integration, a more complete/complex cluster set up with multiple compute nodes, authentication systems such as KeyCloak, or TLS certificates.
+The image you have loaded is a base installation of Open OnDemand version 1.7.0, with a Slurm 18.08.3 on a CentOS 7 base, using HTTP BasicAuth on a unified web/submit/compute node. As this is a demonstration installation of Open OnDemand it does not include non-core apps such as Jupyter notebook integration, a more complete/complex cluster set up with multiple compute nodes, authentication systems such as KeyCloak, or TLS certificates.
 
 You should be able to access it using a web browser on your public IP address. A demo user has been created with the name `ood` and identified with the password `ood`.
