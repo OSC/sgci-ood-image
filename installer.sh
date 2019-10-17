@@ -10,10 +10,11 @@ fi
 # Vagrantfile
 # ================================================================ #
 
-yum install -y epel-release
+yum install -y perl epel-release
 # Strip off the https from the metalink so that epel doesn't bjork up installation
 perl -pi -e 's[metalink=https][metalink=http]g' /etc/yum.repos.d/epel.repo
 yum install -y centos-release-scl lsof sudo scl-utils
+# This is heavy for what we need, but the flavor has adequate space and I am not interested in running down all the tools we need to build Slurm
 yum groupinstall -y 'Development Tools'
 yum install -y https://yum.osc.edu/ondemand/latest/ondemand-release-web-latest-1-2.el7.noarch.rpm
 yum install -y ondemand
@@ -110,58 +111,58 @@ cat >/opt/slurm/etc/slurm.conf <<EOF
 # Put this file on all nodes of your cluster.
 # See the slurm.conf man page for more information.
 #
-ControlMachine=head
-ControlAddr=10.0.0.101
+ControlMachine=ood
+ControlAddr=127.0.0.1
 #BackupController=
 #BackupAddr=
-# 
+#
 AuthType=auth/munge
-#CheckpointType=checkpoint/none 
+#CheckpointType=checkpoint/none
 CryptoType=crypto/munge
-#DisableRootJobs=NO 
-#EnforcePartLimits=NO 
+#DisableRootJobs=NO
+#EnforcePartLimits=NO
 #Epilog=
-#EpilogSlurmctld= 
-#FirstJobId=1 
-#MaxJobId=999999 
-#GresTypes= 
-#GroupUpdateForce=0 
-#GroupUpdateTime=600 
-#JobCheckpointDir=/var/slurm/checkpoint 
+#EpilogSlurmctld=
+#FirstJobId=1
+#MaxJobId=999999
+#GresTypes=
+#GroupUpdateForce=0
+#GroupUpdateTime=600
+#JobCheckpointDir=/var/slurm/checkpoint
 #JobCredentialPrivateKey=
 #JobCredentialPublicCertificate=
-#JobFileAppend=0 
-#JobRequeue=1 
-#JobSubmitPlugins=1 
-#KillOnBadExit=0 
-#LaunchType=launch/slurm 
-#Licenses=foo*4,bar 
-#MailProg=/bin/mail 
-#MaxJobCount=5000 
-#MaxStepCount=40000 
-#MaxTasksPerNode=128 
+#JobFileAppend=0
+#JobRequeue=1
+#JobSubmitPlugins=1
+#KillOnBadExit=0
+#LaunchType=launch/slurm
+#Licenses=foo*4,bar
+#MailProg=/bin/mail
+#MaxJobCount=5000
+#MaxStepCount=40000
+#MaxTasksPerNode=128
 MpiDefault=none
-#MpiParams=ports=#-# 
-#PluginDir= 
-#PlugStackConfig= 
-#PrivateData=jobs 
+#MpiParams=ports=#-#
+#PluginDir=
+#PlugStackConfig=
+#PrivateData=jobs
 ProctrackType=proctrack/cgroup
 #Prolog=
-#PrologFlags= 
-#PrologSlurmctld= 
-#PropagatePrioProcess=0 
-#PropagateResourceLimits= 
-#PropagateResourceLimitsExcept= 
-#RebootProgram= 
+#PrologFlags=
+#PrologSlurmctld=
+#PropagatePrioProcess=0
+#PropagateResourceLimits=
+#PropagateResourceLimitsExcept=
+#RebootProgram=
 ReturnToService=1
-#SallocDefaultCommand= 
+#SallocDefaultCommand=
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmctldPort=6817
 SlurmdPidFile=/var/run/slurmd.pid
 SlurmdPort=6818
 SlurmdSpoolDir=/var/spool/slurmd
 SlurmUser=slurm
-#SlurmdUser=root 
+#SlurmdUser=root
 #SrunEpilog=
 #SrunProlog=
 StateSaveLocation=/var/spool/slurm
@@ -170,61 +171,61 @@ SwitchType=switch/none
 TaskPlugin=task/cgroup
 TaskPluginParam=Sched
 #TaskProlog=
-#TopologyPlugin=topology/tree 
-#TmpFS=/tmp 
-#TrackWCKey=no 
-#TreeWidth= 
-#UnkillableStepProgram= 
-#UsePAM=0 
-# 
-# 
-# TIMERS 
-#BatchStartTimeout=10 
-#CompleteWait=0 
-#EpilogMsgTime=2000 
-#GetEnvTimeout=2 
-#HealthCheckInterval=0 
-#HealthCheckProgram= 
+#TopologyPlugin=topology/tree
+#TmpFS=/tmp
+#TrackWCKey=no
+#TreeWidth=
+#UnkillableStepProgram=
+#UsePAM=0
+#
+#
+# TIMERS
+#BatchStartTimeout=10
+#CompleteWait=0
+#EpilogMsgTime=2000
+#GetEnvTimeout=2
+#HealthCheckInterval=0
+#HealthCheckProgram=
 InactiveLimit=0
 KillWait=30
-#MessageTimeout=10 
-#ResvOverRun=0 
+#MessageTimeout=10
+#ResvOverRun=0
 MinJobAge=300
-#OverTimeLimit=0 
+#OverTimeLimit=0
 SlurmctldTimeout=120
 SlurmdTimeout=300
-#UnkillableStepTimeout=60 
-#VSizeFactor=0 
+#UnkillableStepTimeout=60
+#VSizeFactor=0
 Waittime=0
-# 
-# 
-# SCHEDULING 
-#DefMemPerCPU=0 
+#
+#
+# SCHEDULING
+#DefMemPerCPU=0
 FastSchedule=1
-#MaxMemPerCPU=0 
-#SchedulerTimeSlice=30 
+#MaxMemPerCPU=0
+#SchedulerTimeSlice=30
 SchedulerType=sched/backfill
 SelectType=select/cons_res
 SelectTypeParameters=CR_Core
-# 
-# 
-# JOB PRIORITY 
-#PriorityFlags= 
-#PriorityType=priority/basic 
-#PriorityDecayHalfLife= 
-#PriorityCalcPeriod= 
-#PriorityFavorSmall= 
-#PriorityMaxAge= 
-#PriorityUsageResetPeriod= 
-#PriorityWeightAge= 
-#PriorityWeightFairshare= 
-#PriorityWeightJobSize= 
-#PriorityWeightPartition= 
-#PriorityWeightQOS= 
-# 
-# 
-# LOGGING AND ACCOUNTING 
-#AccountingStorageEnforce=0 
+#
+#
+# JOB PRIORITY
+#PriorityFlags=
+#PriorityType=priority/basic
+#PriorityDecayHalfLife=
+#PriorityCalcPeriod=
+#PriorityFavorSmall=
+#PriorityMaxAge=
+#PriorityUsageResetPeriod=
+#PriorityWeightAge=
+#PriorityWeightFairshare=
+#PriorityWeightJobSize=
+#PriorityWeightPartition=
+#PriorityWeightQOS=
+#
+#
+# LOGGING AND ACCOUNTING
+#AccountingStorageEnforce=0
 #AccountingStorageHost=
 #AccountingStorageLoc=
 #AccountingStoragePass=
@@ -233,39 +234,39 @@ AccountingStorageType=accounting_storage/none
 #AccountingStorageUser=
 AccountingStoreJobComment=YES
 ClusterName=cluster
-#DebugFlags= 
+#DebugFlags=
 #JobCompHost=
 #JobCompLoc=
 #JobCompPass=
 #JobCompPort=
 JobCompType=jobcomp/none
 #JobCompUser=
-#JobContainerType=job_container/none 
+#JobContainerType=job_container/none
 JobAcctGatherFrequency=30
 JobAcctGatherType=jobacct_gather/cgroup
 SlurmctldDebug=3
 #SlurmctldLogFile=
 SlurmdDebug=3
 #SlurmdLogFile=
-#SlurmSchedLogFile= 
-#SlurmSchedLogLevel= 
-# 
-# 
-# POWER SAVE SUPPORT FOR IDLE NODES (optional) 
-#SuspendProgram= 
-#ResumeProgram= 
-#SuspendTimeout= 
-#ResumeTimeout= 
-#ResumeRate= 
-#SuspendExcNodes= 
-#SuspendExcParts= 
-#SuspendRate= 
-#SuspendTime= 
-# 
-# 
-# COMPUTE NODES 
-NodeName=head NodeAddr=10.0.0.101 CPUs=1 State=UNKNOWN 
-PartitionName=batch Nodes=head Default=YES MaxTime=INFINITE State=UP
+#SlurmSchedLogFile=
+#SlurmSchedLogLevel=
+#
+#
+# POWER SAVE SUPPORT FOR IDLE NODES (optional)
+#SuspendProgram=
+#ResumeProgram=
+#SuspendTimeout=
+#ResumeTimeout=
+#ResumeRate=
+#SuspendExcNodes=
+#SuspendExcParts=
+#SuspendRate=
+#SuspendTime=
+#
+#
+# COMPUTE NODES
+NodeName=ood NodeAddr=127.0.0.1 CPUs=1 State=UNKNOWN
+PartitionName=batch Nodes=ood Default=YES MaxTime=INFINITE State=UP
 EOF
 
 # ================================================================ #
